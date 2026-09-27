@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Мониторинг Класса • Кабинет Учителя МАХ</title>
+  <script src="../shared/tailwindcss.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../shared/theme.css">
+</head>
+<body class="min-h-screen bg-[#0C0D11] text-[#E2E8F0] antialiased selection:bg-[#10B981] selection:text-black">
+  
+  <!-- ВЫДВИЖНОЕ МЕНЮ НАВИГАЦИИ УЧИТЕЛЯ -->
+  <div id="teacherNavDrawer" class="hidden fixed inset-0 z-50 flex">
+    <div onclick="toggleTeacherNavMenu()" class="fixed inset-0 bg-black/70 backdrop-blur-sm"></div>
+    <div class="relative w-80 max-w-[85vw] h-full bg-[#111216] p-6 shadow-2xl flex flex-col justify-between z-10">
+      <div class="space-y-6">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-xl bg-[#1D1E26] flex items-center justify-center font-bold text-xs text-[#10B981]">МАХ</div>
+            <span class="font-bold text-sm text-white">Кабинет Учителя</span>
+          </div>
+          <button onclick="toggleTeacherNavMenu()" class="text-xl text-[#71717A] hover:text-white p-1 rounded-lg">✕</button>
+        </div>
+        <nav class="space-y-2">
+          <a href="index.html" class="w-full flex items-center gap-3 p-3 rounded-xl bg-white text-black font-bold text-xs transition-all">👥 Мониторинг класса</a>
+<a href="diagnostics.html" class="w-full flex items-center gap-3 p-3 rounded-xl bg-[#16171D] text-[#CBD5E1] hover:bg-[#20222D] text-xs transition-all">🔍 Разбор ученика</a>
+<a href="planner.html" class="w-full flex items-center gap-3 p-3 rounded-xl bg-[#16171D] text-[#CBD5E1] hover:bg-[#20222D] text-xs transition-all">⏱️ План урока</a>
+<a href="actions.html" class="w-full flex items-center gap-3 p-3 rounded-xl bg-[#16171D] text-[#CBD5E1] hover:bg-[#20222D] text-xs transition-all">⚡ Быстрая помощь</a>
+
+        </nav>
+      </div>
+      <div class="pt-4 space-y-3">
+        <a href="../student/index.html" class="w-full flex items-center justify-center gap-2 p-3 rounded-xl btn-primary-white text-xs font-bold">
+          <span>В Кабинет Ученика</span> <span>→</span>
+        </a>
+        <div class="text-[11px] text-[#71717A] text-center">Платформа МАХ.Образование • 5 класс</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ШАПКА КАБИНЕТА УЧИТЕЛЯ С ВКЛАДКАМИ -->
+  <header class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 px-6 py-4 rounded-2xl cockpit-surface shadow-xl">
+    <div class="flex items-center gap-4">
+      <button onclick="toggleTeacherNavMenu()" title="Открыть меню" class="p-2 rounded-xl bg-[#1A1C24] text-white hover:bg-[#252836] transition-all flex items-center gap-1.5 text-xs font-medium">
+        <span class="text-base">☰</span>
+        <span class="hidden sm:inline">Разделы</span>
+      </button>
+      <div>
+        <h1 class="text-base font-bold tracking-wide text-white">Кабинет Учителя • Аналитика МАХ</h1>
+        <p class="text-xs text-[#94A3B8]">Мониторинг решений класса в реальном времени • Синхронизация с ботами МАХ</p>
+      </div>
+    </div>
+
+    <!-- ГОРИЗОНТАЛЬНЫЕ ВКЛАДКИ РАЗДЕЛОВ -->
+    <nav class="hidden lg:flex items-center gap-1.5 p-1 rounded-2xl bg-[#14151D]">
+      <a href="index.html" class="px-3.5 py-1.5 rounded-xl text-xs transition-all bg-white text-black font-bold shadow-md">👥 Мониторинг класса</a>
+<a href="diagnostics.html" class="px-3.5 py-1.5 rounded-xl text-xs transition-all text-[#94A3B8] hover:text-white hover:bg-[#1D1E26] font-medium">🔍 Разбор ученика</a>
+<a href="planner.html" class="px-3.5 py-1.5 rounded-xl text-xs transition-all text-[#94A3B8] hover:text-white hover:bg-[#1D1E26] font-medium">⏱️ План урока</a>
+<a href="actions.html" class="px-3.5 py-1.5 rounded-xl text-xs transition-all text-[#94A3B8] hover:text-white hover:bg-[#1D1E26] font-medium">⚡ Быстрая помощь</a>
+
+    </nav>
+
+    <div class="flex items-center gap-3 text-xs">
+      <!-- ВЫБОР КЛАССА -->
+      <div class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#1D1E26] text-xs shadow-inner">
+        <span class="text-[#71717A] text-[11px]">Класс:</span>
+        <select id="classSelector" onchange="changeClass(this.value)" class="bg-transparent text-white font-bold cursor-pointer focus:outline-none pr-1">
+          <option value="5b" class="bg-[#111216] text-white" selected>5 «Б» (28 уч.)</option>
+          <option value="5a" class="bg-[#111216] text-white">5 «А» (26 уч.)</option>
+          <option value="5v" class="bg-[#111216] text-white">5 «В» (29 уч.)</option>
+          <option value="6a" class="bg-[#111216] text-white">6 «А» (27 уч.)</option>
+        </select>
+      </div>
+
+      <span id="classBottleneckBadge" class="text-[11px] px-3 py-1.5 rounded-full bg-[#3B1818] text-[#EF4444] font-semibold hidden md:inline-block">
+        Узкое место: Шаг 3 (17 застряли)
+      </span>
+      <a href="../student/index.html" class="text-[#94A3B8] hover:text-white transition-all hidden sm:flex items-center gap-1">
+        <span>Ученик</span> <span>→</span>
+      </a>
+      <div class="flex items-center gap-2 pl-1">
+        <div class="w-8 h-8 rounded-full bg-[#1D1E26] flex items-center justify-center font-bold text-xs text-white">МИ</div>
+        <span class="text-white font-medium hidden md:inline">Марья Ив.</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="w-full px-4 sm:px-6 lg:px-8 py-5 space-y-6">
+    
+    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div>
+        <h2 class="text-xl font-bold text-white tracking-wide">👥 Мониторинг Класса (28 учеников)</h2>
+        <p class="text-xs text-[#94A3B8]">Мониторинг этапов решения в боте МАХ в реальном времени • Синхронизация каждые 3 сек.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <button onclick="generateTwinProblemForClass()" class="px-4 py-2 rounded-xl btn-primary-white text-xs font-bold shadow-md">
+          ⚡ Сгенерировать задачу-двойник 17 застрявшим
+        </button>
+      </div>
+    </div>
+
+    <!-- АЛЕРТ УЗКОГО МЕСТА УРОКА -->
+    <div class="p-4 rounded-2xl bg-[#2A1517] flex items-center justify-between shadow-lg">
+      <div class="flex items-center gap-3">
+        <span class="text-xl">⚠️</span>
+        <div>
+          <div class="text-xs font-bold text-[#EF4444]">Узкое место урока: Шаг 3 (Домножение числителей)</div>
+          <div class="text-[11px] text-[#94A3B8]">62% класса (17 из 28 учеников) забыли домножить числитель первой дроби на 3.</div>
+        </div>
+      </div>
+      <a href="diagnostics.html?id=1" class="px-4 py-2 rounded-xl bg-[#3B1818] text-[#EF4444] font-bold text-xs hover:bg-[#4E2020] transition-all">
+        Разбор учеников →
+      </a>
+    </div>
+
+    <!-- ТАБЛИЦА МОНИТОРИНГА КЛАССА С ДИНАМИЧЕСКИМИ ШАГАМИ -->
+    <div class="cockpit-card rounded-3xl p-6 space-y-4">
+      <div class="grid grid-cols-12 px-4 py-2 text-[11px] font-bold uppercase tracking-wider text-[#71717A]">
+        <div class="col-span-4">Ученик</div>
+        <div class="col-span-2 text-center">1. Анализ долей</div>
+        <div class="col-span-2 text-center">2. Общий знаменатель</div>
+        <div class="col-span-2 text-center">3. Домножение ⚠️</div>
+        <div class="col-span-2 text-center">4. Ответ</div>
+      </div>
+
+      <div class="space-y-2 text-xs" id="studentsMatrixContainer">
+        <!-- Иванов Михаил -->
+        <a href="diagnostics.html?id=1" class="grid grid-cols-12 items-center px-4 py-3 rounded-2xl bg-[#222432] text-xs shadow-md block">
+          <div class="col-span-4 font-bold text-white flex items-center gap-2">
+            <span>Иванов Михаил</span>
+            <span class="text-[#D4AF37]">★</span>
+          </div>
+          <div class="col-span-2 text-center"><span class="px-3 py-1 rounded-md text-[11px] font-semibold pill-status-green">Пройдено</span></div>
+          <div class="col-span-2 text-center"><span class="px-3 py-1 rounded-md text-[11px] font-semibold pill-status-yellow">НОК = 12</span></div>
+          <div class="col-span-2 text-center"><span class="px-3 py-1 rounded-md text-[11px] font-semibold pill-status-red">62% застряли</span></div>
+          <div class="col-span-2 text-center"><span class="px-3 py-1 rounded-md text-[11px] font-semibold pill-status-green">Сдано</span></div>
+        </a>
+
+        <!-- Алексеева Анна -->
+        <a href="diagnostics.html?id=2" class="grid grid-cols-12 items-center px-4 py-3 rounded-2xl cockpit-card-elevated text-xs hover:bg-[#20222D] block transition-all">
+          <div class="col-span-4 font-bold text-white">Алексеева Анна</div>
+          <div class="col-span-2 text-center"><span class="px-3 py-1 rounded-md text-[11px] font-semibold pill-status-green">Пройдено</span></div>
+          <div class="col-span-2 text-center"><span class="px-3 py-1 rounded-md text-[11px] font-semibold pill-status-yellow">НОК = 12</span></div>
+          <div class="col-span-2 text-center"><span class="px-3 py-1 rounded-md text-[11px] font-semibold pill-status-red">62% застряли</span></div>
+          <div class="col-span-2 text-center"><span class="px-3 py-1 rounded-md text-[11px] font-semibold pill-status-green">Сдано</span></div>
+        </a>
+
+        <!-- Бондаренко Дмитрий -->
+        <a href="diagnostics.html?id=3" class="grid grid-cols-12 items-center px-4 py-3 rounded-2xl cockpit-card-elevated text-xs hover:bg-[#20222D] block transition-all">
+          <div class="col-span-4 font-bold text-white">Бондаренко Дмитрий</div>
+          <div class="col-span-2 text-center"><span class="px-3 py-1 rounded-md text-[11px] font-semibold pill-status-green">Пройдено</span></div>
+          <div class="col-span-2 text-center"><span class="px-3 py-1 rounded-md text-[11px] font-semibold pill-status-yellow">НОК = 12</span></div>
+          <div class="col-span-2 text-center"><span class="px-3 py-1 rounded-md text-[11px] font-semibold pill-status-red">62% застряли</span></div>
+          <div class="col-span-2 text-center"><span class="px-3 py-1 rounded-md text-[11px] font-semibold pill-status-green">Сдано</span></div>
+        </a>
+
+        <!-- Хайрутдинов Рамис -->
+        <a href="diagnostics.html?id=4" class="grid grid-cols-12 items-center px-4 py-3 rounded-2xl cockpit-card-elevated text-xs hover:bg-[#20222D] block transition-all">
+          <div class="col-span-4 font-bold text-[#D4AF37]">Хайрутдинов Рамис</div>
+          <div class="col-span-2 text-center"><span class="px-3 py-1 rounded-md text-[11px] font-semibold pill-status-green">Пройдено</span></div>
+          <div class="col-span-2 text-center"><span class="px-3 py-1 rounded-md text-[11px] font-semibold pill-status-green">НОК = 12</span></div>
+          <div class="col-span-2 text-center"><span class="px-3 py-1 rounded-md text-[11px] font-semibold pill-status-yellow">в работе</span></div>
+          <div class="col-span-2 text-center"><span class="px-3 py-1 rounded-md text-[11px] font-semibold pill-status-green">Сдано</span></div>
+        </a>
+
+        <!-- Гарипов Тимур -->
+        <a href="diagnostics.html?id=6" class="grid grid-cols-12 items-center px-4 py-3 rounded-2xl cockpit-card-elevated text-xs hover:bg-[#20222D] block transition-all">
+          <div class="col-span-4 font-bold text-white">Гарипов Тимур</div>
+          <div class="col-span-2 text-center"><span class="px-3 py-1 rounded-md text-[11px] font-semibold pill-status-green">Пройдено</span></div>
+          <div class="col-span-2 text-center"><span class="px-3 py-1 rounded-md text-[11px] font-semibold pill-status-green">НОК = 12</span></div>
+          <div class="col-span-2 text-center"><span class="px-3 py-1 rounded-md text-[11px] font-semibold pill-status-green">Пройдено</span></div>
+          <div class="col-span-2 text-center"><span class="px-3 py-1 rounded-md text-[11px] font-semibold pill-status-green">Сдано</span></div>
+        </a>
+      </div>
+    </div>
+
+  </main>
+  <script src="./app.js"></script>
+</body>
+</html>

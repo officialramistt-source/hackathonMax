@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Темы и проблемы • Кабинет Ученика МАХ</title>
+  <script src="../shared/tailwindcss.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../shared/theme.css">
+</head>
+<body class="min-h-screen bg-[#0C0D11] text-[#E2E8F0] antialiased selection:bg-[#D4AF37] selection:text-black">
+  
+  <!-- ВЫДВИЖНОЕ МЕНЮ НАВИГАЦИИ -->
+  <div id="navMenuDrawer" class="hidden fixed inset-0 z-50 flex">
+    <div onclick="toggleNavMenu()" class="fixed inset-0 bg-black/70 backdrop-blur-sm"></div>
+    <div class="relative w-80 max-w-[85vw] h-full bg-[#111216] p-6 shadow-2xl flex flex-col justify-between z-10">
+      <div class="space-y-6">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-xl bg-[#1D1E26] flex items-center justify-center font-bold text-xs text-[#D4AF37]">МАХ</div>
+            <span class="font-bold text-sm text-white">Кабинет Ученика</span>
+          </div>
+          <button onclick="toggleNavMenu()" class="text-xl text-[#71717A] hover:text-white p-1 rounded-lg">✕</button>
+        </div>
+        <nav class="space-y-2">
+          <a href="index.html" class="w-full flex items-center gap-3 p-3 rounded-xl bg-[#16171D] text-[#CBD5E1] hover:bg-[#20222D] text-xs transition-all">🏠 Главная</a>
+<a href="topics.html" class="w-full flex items-center gap-3 p-3 rounded-xl bg-[#D4AF37] text-black font-bold text-xs transition-all">🗺️ Темы и проблемы</a>
+<a href="bottleneck.html" class="w-full flex items-center gap-3 p-3 rounded-xl bg-[#16171D] text-[#CBD5E1] hover:bg-[#20222D] text-xs transition-all">🔍 Разбор ошибок</a>
+<a href="history.html" class="w-full flex items-center gap-3 p-3 rounded-xl bg-[#16171D] text-[#CBD5E1] hover:bg-[#20222D] text-xs transition-all">📱 История в боте</a>
+<a href="planner.html" class="w-full flex items-center gap-3 p-3 rounded-xl bg-[#16171D] text-[#CBD5E1] hover:bg-[#20222D] text-xs transition-all">📅 План Тренировок</a>
+<a href="tools.html" class="w-full flex items-center gap-3 p-3 rounded-xl bg-[#16171D] text-[#CBD5E1] hover:bg-[#20222D] text-xs transition-all">🧮 Шпаргалки и правила</a>
+
+        </nav>
+      </div>
+      <div class="pt-4 space-y-3">
+        <a href="../teacher/index.html" class="w-full flex items-center justify-center gap-2 p-3 rounded-xl btn-primary-white text-xs font-bold">
+          <span>В Кабинет Учителя</span> <span>→</span>
+        </a>
+        <div class="text-[11px] text-[#71717A] text-center">Платформа МАХ.Образование • 5 «Б» класс</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ШАПКА КАБИНЕТА С ВКЛАДКАМИ -->
+  <header class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 px-6 py-4 rounded-2xl cockpit-surface shadow-xl">
+    <div class="flex items-center gap-4">
+      <button onclick="toggleNavMenu()" title="Открыть меню" class="p-2 rounded-xl bg-[#1A1C24] text-white hover:bg-[#252836] transition-all flex items-center gap-1.5 text-xs font-medium">
+        <span class="text-base">☰</span>
+        <span class="hidden sm:inline">Разделы</span>
+      </button>
+      <div>
+        <h1 class="text-base font-bold tracking-wide text-white">Кабинет Ученика • Аналитика МАХ</h1>
+        <p class="text-xs text-[#94A3B8]">Мониторинг знаний и пробелов • Решение задач в боте @max_math_bot</p>
+      </div>
+    </div>
+
+    <!-- ГОРИЗОНТАЛЬНЫЕ ВКЛАДКИ РАЗДЕЛОВ -->
+    <nav class="hidden xl:flex items-center gap-1.5 p-1 rounded-2xl bg-[#14151D]">
+      <a href="index.html" class="px-3.5 py-1.5 rounded-xl text-xs transition-all text-[#94A3B8] hover:text-white hover:bg-[#1D1E26] font-medium">🏠 Главная</a>
+<a href="topics.html" class="px-3.5 py-1.5 rounded-xl text-xs transition-all bg-[#D4AF37] text-black font-bold shadow-md">🗺️ Темы и проблемы</a>
+<a href="bottleneck.html" class="px-3.5 py-1.5 rounded-xl text-xs transition-all text-[#94A3B8] hover:text-white hover:bg-[#1D1E26] font-medium">🔍 Разбор ошибок</a>
+<a href="history.html" class="px-3.5 py-1.5 rounded-xl text-xs transition-all text-[#94A3B8] hover:text-white hover:bg-[#1D1E26] font-medium">📱 История в боте</a>
+<a href="planner.html" class="px-3.5 py-1.5 rounded-xl text-xs transition-all text-[#94A3B8] hover:text-white hover:bg-[#1D1E26] font-medium">📅 План Тренировок</a>
+<a href="tools.html" class="px-3.5 py-1.5 rounded-xl text-xs transition-all text-[#94A3B8] hover:text-white hover:bg-[#1D1E26] font-medium">🧮 Шпаргалки и правила</a>
+
+    </nav>
+
+    <div class="flex items-center gap-4 text-xs">
+      <span class="text-[11px] px-3 py-1.5 rounded-full bg-[#142E23] text-[#10B981] font-semibold hidden lg:inline-block">
+        ● Бот МАХ активен
+      </span>
+      <a href="../teacher/index.html" class="text-[#94A3B8] hover:text-[#D4AF37] transition-all hidden sm:flex items-center gap-1">
+        <span>Кабинет Учителя</span> <span>→</span>
+      </a>
+      <div class="flex items-center gap-2 pl-2">
+        <div class="w-8 h-8 rounded-full bg-[#1D1E26] flex items-center justify-center font-bold text-xs text-white">РХ</div>
+        <span class="text-white font-medium hidden md:inline">Рамис Х.</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="w-full px-4 sm:px-6 lg:px-8 py-5 space-y-6">
+    
+    <div class="flex items-center justify-between">
+      <div>
+        <h2 class="text-xl font-bold text-white tracking-wide">🗺️ Темы и проблемы (5 класс: Обыкновенные дроби)</h2>
+        <p class="text-xs text-[#94A3B8]">Автоматическая диагностика на основе твоих ответов в чат-боте МАХ.</p>
+      </div>
+      <a href="index.html" class="text-xs text-[#94A3B8] hover:text-white transition-all flex items-center gap-1">
+        <span>← Назад на Главную</span>
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 pt-2">
+
+      <!-- ТЕМА 1 (ЗОНА РИСКА) -->
+      <div class="p-6 rounded-3xl bg-[#221618] space-y-4 shadow-xl">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2.5">
+            <span class="text-sm font-bold text-white">1. Сложение дробей с разными знаменателями</span>
+            <span class="text-[11px] font-bold text-[#EF4444] bg-[#3B1818] px-2.5 py-0.5 rounded-md">Зона риска</span>
+          </div>
+          <span class="text-xs font-mono-code font-bold text-[#EF4444]">58% освоено</span>
+        </div>
+        <div class="w-full h-2.5 rounded-full bg-[#181922] overflow-hidden">
+          <div class="h-full bg-[#EF4444] rounded-full" style="width: 58%"></div>
+        </div>
+        <div class="p-4 rounded-2xl bg-[#1A1214] text-xs text-[#E2E8F0] space-y-2 leading-relaxed">
+          <span class="text-[#EF4444] font-semibold text-xs">⚠️ Точный диагноз ошибки (Шаг 3):</span>
+          <p class="text-[#CBD5E1] text-[11px]">
+            Ты правильно находишь общий знаменатель НОК = 12, но забываешь умножить числители на дополнительные множители (пишешь 1/12 вместо 3/12). 3 ошибки за неделю.
+          </p>
+        </div>
+        <div class="flex items-center justify-between pt-1">
+          <a href="bottleneck.html" class="px-4 py-2 rounded-xl btn-primary-white text-xs font-bold shadow-md">
+            Изучить разбор этой ошибки →
+          </a>
+          <span class="text-[11px] text-[#94A3B8]">Рекомендован спринт из 3 задач</span>
+        </div>
+      </div>
+
+      <!-- ТЕМА 2 (ОСВОЕНО) -->
+      <div class="p-6 rounded-3xl cockpit-card space-y-4 shadow-xl">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2.5">
+            <span class="text-sm font-bold text-white">2. Поиск общего знаменателя (НОК)</span>
+            <span class="text-[11px] font-bold text-[#10B981] bg-[#142E23] px-2.5 py-0.5 rounded-md">Освоено</span>
+          </div>
+          <span class="text-xs font-mono-code font-bold text-[#10B981]">92% освоено</span>
+        </div>
+        <div class="w-full h-2.5 rounded-full bg-[#121319] overflow-hidden">
+          <div class="h-full bg-[#10B981] rounded-full" style="width: 92%"></div>
+        </div>
+        <div class="p-4 rounded-2xl bg-[#121319] text-xs text-[#CBD5E1] space-y-1">
+          <span class="text-[#10B981] font-semibold">✓ Отличная скорость:</span>
+          <p class="text-[11px] text-[#94A3B8]">Быстро находишь НОК чисел 4 и 6, 3 и 5. Среднее время ответа в боте: 14 секунд. Алгоритм разложения усвоен прочно.</p>
+        </div>
+      </div>
+
+      <!-- ТЕМА 3 (ОТЛИЧНО) -->
+      <div class="p-6 rounded-3xl cockpit-card space-y-4 shadow-xl">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2.5">
+            <span class="text-sm font-bold text-white">3. Сравнение и анализ долей</span>
+            <span class="text-[11px] font-bold text-[#10B981] bg-[#142E23] px-2.5 py-0.5 rounded-md">Отлично</span>
+          </div>
+          <span class="text-xs font-mono-code font-bold text-[#10B981]">98% освоено</span>
+        </div>
+        <div class="w-full h-2.5 rounded-full bg-[#121319] overflow-hidden">
+          <div class="h-full bg-[#10B981] rounded-full" style="width: 98%"></div>
+        </div>
+        <div class="p-4 rounded-2xl bg-[#121319] text-xs text-[#CBD5E1] space-y-1">
+          <span class="text-[#10B981] font-semibold">✓ Интуитивное понимание:</span>
+          <p class="text-[11px] text-[#94A3B8]">Моментально определяешь равенство или различие долей. Среднее время ответа в боте: 6 секунд.</p>
+        </div>
+      </div>
+
+      <!-- ТЕМА 4 (В ПРОЦЕССЕ) -->
+      <div class="p-6 rounded-3xl cockpit-card space-y-4 shadow-xl">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2.5">
+            <span class="text-sm font-bold text-white">4. Сокращение дробей и выделение целой части</span>
+            <span class="text-[11px] font-bold text-[#F59E0B] bg-[#382D12] px-2.5 py-0.5 rounded-md">В процессе</span>
+          </div>
+          <span class="text-xs font-mono-code font-bold text-[#F59E0B]">65% освоено</span>
+        </div>
+        <div class="w-full h-2.5 rounded-full bg-[#121319] overflow-hidden">
+          <div class="h-full bg-[#F59E0B] rounded-full" style="width: 65%"></div>
+        </div>
+        <div class="p-4 rounded-2xl bg-[#121319] text-xs text-[#CBD5E1] space-y-1">
+          <span class="text-[#F59E0B] font-semibold">⚠️ Требует закрепления:</span>
+          <p class="text-[11px] text-[#94A3B8]">Иногда оставляешь ответ в виде 6/12 вместо 1/2. Запланировано в следующем тренировочном спринте.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- МОДАЛКА ЗАДАЧИ-ДВОЙНИКА -->
+  <div id="twinModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
+    <div class="max-w-md w-full cockpit-card rounded-3xl p-8 space-y-5 shadow-2xl">
+      <div class="flex items-center justify-between">
+        <span class="text-xs uppercase tracking-wider text-[#D4AF37] font-semibold">Задача-Двойник для тренировки в боте</span>
+        <button onclick="closeTwinModal()" class="text-sm text-[#71717A] hover:text-white">✕</button>
+      </div>
+      <div class="space-y-2">
+        <h3 class="text-2xl font-bold text-white">Задача №318-Б: 1/4 + 5/6</h3>
+        <p class="text-xs text-[#94A3B8] leading-relaxed">
+          Та же математическая структура (знаменатели 4 и 6, НОК = 12), но новый числитель. Отправь решение в бот МАХ для проверки!
+        </p>
+      </div>
+      <button onclick="closeTwinModal(); alert('Задача-двойник №318-Б отправлена в твой чат с ботом МАХ!')" class="w-full py-3.5 rounded-xl btn-primary-white text-xs font-bold">
+        Отправить задачу в бот МАХ
+      </button>
+    </div>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
